@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { Maintweet } from "../components/Maintweet";
+import { RightSidebar } from "../components/RightSidebar";
 import { Sidebar } from "../components/Sidebar";
 
 const Home: NextPage = () => {
@@ -9,12 +11,16 @@ const Home: NextPage = () => {
 			<Head>
 				<title>Twitter</title>
 			</Head>
-			<div>
+
+			<div className="grid grid-cols-9 max-w-6xl mx-auto ">
+				{/* Left side */}
 				<Sidebar />
 
-				{/* MainTweet  */}
+				{/* Middle  */}
+				<Maintweet />
 
 				{/* RightSidebar  */}
+				<RightSidebar />
 			</div>
 		</div>
 	);
