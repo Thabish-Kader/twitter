@@ -8,9 +8,9 @@ interface Props {
 
 export default function SidebarButtons({ Icon, title }: Props) {
 	return (
-		<div className="flex rounded-lg px-3 max-w-fit items-center py-3 pl-2 group cursor-pointer hover:bg-gray-200">
-			<Icon className="h-10 w-10 items-center group-hover:text-twitter" />
-			<p className="text-xl font-medium group-hover:text-twitter hidden sm:block ">
+		<div className="flex rounded-lg space-x-2 max-w-fit px-2 items-center py-3 pl-2 group cursor-pointer hover:bg-gray-200">
+			<Icon className="h-6 w-6 items-center group-hover:text-twitter" />
+			<p className="text-xl font-medium group-hover:text-twitter hidden md:block ">
 				{title}
 			</p>
 		</div>

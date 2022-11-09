@@ -15,7 +15,7 @@ import SidebarButtons from "./SidebarButtons";
 export const Sidebar = () => {
 	return (
 		<div className="flex flex-col col-span-2 px-4 items-center sm:items-start">
-			<Image className="h-20 w-20" src={twitterLogo} alt="/twitter" />
+			<Image className="h-10 w-10 m-3" src={twitterLogo} alt="/twitter" />
 			{/* Component for icons and title */}
 			<SidebarButtons Icon={HomeIcon} title={"Home"} />
 			<SidebarButtons Icon={HashtagIcon} title={"Explore"} />
