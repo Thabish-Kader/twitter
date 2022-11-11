@@ -4,6 +4,7 @@ import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import userImage from "../public/assets/userbackground.jpg";
 import { TweetBox } from "./TweetBox";
 import { Tweet } from "../typings";
+import { SingleTweet } from "./SingleTweet";
 
 interface MaintweetProps {
 	tweets: Tweet[];
@@ -19,6 +20,12 @@ export const Maintweet: FC<MaintweetProps> = ({ tweets }) => {
 			</div>
 			{/* Input field icons and button */}
 			<TweetBox />
+
+			{/* Tweet component */}
+
+			{tweets.map((tweet) => (
+				<SingleTweet key={tweet._id} tweet={tweet} />
+			))}
 		</div>
 	);
 };
