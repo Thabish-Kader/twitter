@@ -36,7 +36,13 @@ export const TweetBox = () => {
 							<MapPinIcon className="h-5 w-5" />
 						</div>
 
-						<button className="bg-twitter rounded-full px-5 py-2 font-bold text-white">
+						<button
+							className={
+								input === ""
+									? "bg-twitter/40 disabled: rounded-full px-5 py-2 font-bold text-white"
+									: "bg-twitter rounded-full px-5 py-2 font-bold text-white"
+							}
+						>
 							Tweet
 						</button>
 					</div>

@@ -16,7 +16,7 @@ interface SingleTweetProps {
 
 export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 	return (
-		<div className="p-4 border-t-gray-100 border-t">
+		<div className="p-4 border-t-gray-100 border-y">
 			<div className="flex items-center space-x-1">
 				<div className="h-10 w-10 relative">
 					<Image
@@ -46,7 +46,7 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 					alt="/tweetImg"
 					className="max-h-60 object-cover rounded-lg"
 				/>
-				<div className="flex justify-between mt-2 max-w-sm">
+				<div className="flex justify-between mt-2 ">
 					<div className="flex items-center">
 						<ChatBubbleLeftIcon className="h-5 w-5 cursor-pointer" />
 						<p className="ml-2">5</p>
