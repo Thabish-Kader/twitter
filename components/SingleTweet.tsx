@@ -10,6 +10,7 @@ import {
 	EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import { fetchComments } from "../utils/fetchComments";
+import { useQuery } from "react-query";
 
 interface SingleTweetProps {
 	tweet: Tweet;
@@ -18,14 +19,18 @@ interface SingleTweetProps {
 export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 	const [comments, setComments] = useState<Comments[]>([]);
 
-	const getComments = async () => {
-		const tweetComments: Comments[] = await fetchComments(tweet._id);
-		setComments(tweetComments);
-	};
-	console.log(comments);
-	useEffect(() => {
-		getComments();
-	}, []);
+	const { data } = useQuery<Comments[]>("commentData", () =>
+		fetchComments(tweet._id)
+	);
+	console.log(data);
+	// const getComments = async () => {
+	// 	const tweetComments: Comments[] = await fetchComments(tweet._id);
+	// 	setComments(tweetComments);
+	// };
+	// console.log(comments);
+	// useEffect(() => {
+	// 	getComments();
+	// }, []);
 
 	return (
 		<div className="p-4 border-t-gray-100 border-y">
@@ -67,9 +72,9 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 					<HeartIcon className="h-5 w-5 cursor-pointer" />
 					<ArrowUpTrayIcon className="h-5 w-5 cursor-pointer" />
 				</div>
-				{comments?.length > 0 && (
+				{data && (
 					<div>
-						{comments.map((comment) => (
+						{data?.map((comment) => (
 							<div
 								key={comment._id}
 								className="flex flex-col justify-center"
