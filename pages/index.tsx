@@ -5,6 +5,7 @@ import { Maintweet } from "../components/Maintweet";
 import { RightSidebar } from "../components/RightSidebar";
 import { Sidebar } from "../components/Sidebar";
 import { Tweet } from "../typings";
+import { fetchTweets } from "../utils/fetchTweets";
 
 interface Props {
 	tweets: Tweet[];
@@ -23,7 +24,7 @@ const Home: NextPage<Props> = ({ tweets }) => {
 				<Sidebar />
 
 				{/* Middle  */}
-				<Maintweet />
+				<Maintweet tweets={tweets} />
 
 				{/* RightSidebar  */}
 				<RightSidebar />
@@ -35,12 +36,8 @@ const Home: NextPage<Props> = ({ tweets }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_BASE_URL}/api/getTweets`
-	);
-	const data = await res.json();
-	const tweets: Tweet[] = data.tweets;
-
+	const res = await fetchTweets();
+	const tweets = res;
 	return {
 		props: { tweets },
 	};

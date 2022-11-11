@@ -1,10 +1,16 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import userImage from "../public/assets/userbackground.jpg";
 import { TweetBox } from "./TweetBox";
+import { Tweet } from "../typings";
 
-export const Maintweet = () => {
+interface MaintweetProps {
+	tweets: Tweet[];
+}
+
+export const Maintweet: FC<MaintweetProps> = ({ tweets }) => {
+	console.log(tweets);
 	return (
 		<div className="col-span-7 lg:col-span-5 border-x">
 			<div className="flex items-center justify-between ">
