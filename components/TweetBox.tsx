@@ -1,4 +1,4 @@
-import React, { SetStateAction, use, useRef, useState } from "react";
+import React, { FC, SetStateAction, use, useRef, useState } from "react";
 import {
 	CalendarIcon,
 	FaceSmileIcon,
@@ -9,9 +9,16 @@ import {
 import Image from "next/image";
 import userImage from "../public/assets/userbackground.jpg";
 import { useSession } from "next-auth/react";
-import { TweetBody } from "../typings";
+import { Tweet, TweetBody } from "../typings";
+import { toNamespacedPath } from "node:path/win32";
+import { toast } from "react-hot-toast";
+import { fetchTweets } from "../utils/fetchTweets";
 
-export const TweetBox = () => {
+interface TweetBoxProps {
+	setTweets: React.Dispatch<React.SetStateAction<Tweet[]>>;
+}
+
+export const TweetBox: FC<TweetBoxProps> = ({ setTweets }) => {
 	const [input, setInput] = useState<string>("");
 	const [imageInputOpen, setImageInputOpen] = useState<boolean>(false);
 	const imageUrlRef = useRef<HTMLInputElement>(null);
@@ -39,6 +46,9 @@ export const TweetBox = () => {
 			method: "POST",
 		});
 		const json = await result.json();
+		const updatedFeed = await fetchTweets();
+		setTweets(updatedFeed);
+		toast("Tweet is posted!!");
 		return json;
 	};
 

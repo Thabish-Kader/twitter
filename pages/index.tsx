@@ -6,7 +6,7 @@ import { RightSidebar } from "../components/RightSidebar";
 import { Sidebar } from "../components/Sidebar";
 import { Tweet } from "../typings";
 import { fetchTweets } from "../utils/fetchTweets";
-
+import { Toaster } from "react-hot-toast";
 interface Props {
 	tweets: Tweet[];
 }
@@ -15,6 +15,7 @@ const Home: NextPage<Props> = ({ tweets }) => {
 	console.log(tweets);
 	return (
 		<div className="">
+			<Toaster />
 			<Head>
 				<title>Twitter</title>
 			</Head>
