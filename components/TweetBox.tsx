@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import userImage from "../public/assets/userbackground.jpg";
 import { useSession } from "next-auth/react";
+import { TweetBody } from "../typings";
 
 export const TweetBox = () => {
 	const [input, setInput] = useState<string>("");
@@ -18,13 +19,39 @@ export const TweetBox = () => {
 	const { data: session } = useSession();
 
 	// image url handler function
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const addImage = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!imageUrlRef.current?.value) return;
 		setImageUrl(imageUrlRef.current?.value);
 		imageUrlRef.current.value = "";
 		setImageInputOpen(false);
 	};
+
+	const postTweet = async () => {
+		const tweetCreate: TweetBody = {
+			text: input,
+			username: session?.user?.name as string,
+			profileImg: session?.user?.image || userImage,
+			image: imageUrl,
+		};
+		const result = await fetch(`/api/postTweet`, {
+			body: JSON.stringify(tweetCreate),
+			method: "POST",
+		});
+		const json = await result.json();
+		return json;
+	};
+
+	const handleSubmit = (
+		e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+	) => {
+		e.preventDefault();
+		postTweet();
+		setInput("");
+		setImageUrl("");
+		setImageInputOpen(false);
+	};
+
 	return (
 		<div className="flex space-x-2 p-5">
 			<div className="relative h-14 w-14 ">
@@ -59,6 +86,7 @@ export const TweetBox = () => {
 						</div>
 
 						<button
+							onClick={handleSubmit}
 							disabled={!input || !session}
 							className="bg-twitter disabled:opacity-40 rounded-full px-5 py-2 font-bold text-white"
 						>
@@ -68,7 +96,7 @@ export const TweetBox = () => {
 				</form>
 				{imageInputOpen && (
 					<form
-						onSubmit={handleSubmit}
+						onSubmit={addImage}
 						className="flex bg-twitter p-2 m-2 rounded-lg"
 					>
 						<input

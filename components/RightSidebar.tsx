@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export const RightSidebar = () => {
 	return (
-		<div className="w-full hidden lg:inline col-span-2 px-2 mt-2">
+		<div className="w-full hidden  lg:inline col-span-2 px-2 mt-2">
 			<div className="bg-gray-100 flex items-center p-3 space-x-2 rounded-full">
 				<MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
 				<input

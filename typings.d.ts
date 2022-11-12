@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface Tweet extends TweetBody {
 	_id: string;
 	_createdAt: string;
@@ -10,7 +12,7 @@ export interface Tweet extends TweetBody {
 export type TweetBody = {
 	text: string;
 	username: string;
-	profileImg: string;
+	profileImg: string | StaticImageData;
 	image?: string;
 };
 

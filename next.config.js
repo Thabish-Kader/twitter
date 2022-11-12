@@ -8,6 +8,7 @@ module.exports = {
 			"cdn.shopify.com",
 			"pbs.twimg.com",
 			"lh3.googleusercontent.com",
+			"www.commonwealthfund.org",
 		],
 	},
 };

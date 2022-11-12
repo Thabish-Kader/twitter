@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
-import { Comments, Tweet } from "../typings";
+import { Comment, Tweet } from "../typings";
 import TimeAgo from "react-timeago";
 import {
 	HeartIcon,
@@ -17,20 +17,22 @@ interface SingleTweetProps {
 }
 
 export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
-	const [comments, setComments] = useState<Comments[]>([]);
+	const [comments, setComments] = useState<Comment[]>([]);
+	const [chatOpen, setChatOpen] = useState<boolean>(false);
+	const [userComment, setUserComment] = useState<string>("");
 
-	const { data } = useQuery<Comments[]>("commentData", () =>
-		fetchComments(tweet._id)
-	);
-	console.log(data);
-	// const getComments = async () => {
-	// 	const tweetComments: Comments[] = await fetchComments(tweet._id);
-	// 	setComments(tweetComments);
-	// };
-	// console.log(comments);
-	// useEffect(() => {
-	// 	getComments();
-	// }, []);
+	const getComments = async () => {
+		const tweetComments: Comment[] = await fetchComments(tweet._id);
+		setComments(tweetComments);
+	};
+
+	useEffect(() => {
+		getComments();
+	}, []);
+
+	const handleSubmit = (
+		e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+	) => {};
 
 	return (
 		<div className="p-4 border-t-gray-100 border-y">
@@ -58,23 +60,48 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 			</div>
 			<div className="ml-11 space-y-3">
 				<p className="">{tweet.text}</p>
-				<img
-					src={tweet.image}
-					alt="/tweetImg"
-					className="max-h-60 object-cover rounded-lg"
-				/>
+				{tweet.image && (
+					<div className="relative h-60 ">
+						<Image
+							src={tweet.image}
+							alt="/tweetImg"
+							className="object-cover rounded-lg"
+							fill
+						/>
+					</div>
+				)}
 				<div className="flex justify-between mt-2 ">
 					<div className="flex items-center">
-						<ChatBubbleLeftIcon className="h-5 w-5 cursor-pointer" />
+						<ChatBubbleLeftIcon
+							onClick={() => setChatOpen(!chatOpen)}
+							className="h-5 w-5 cursor-pointer"
+						/>
 						<p className="ml-2">{comments.length}</p>
 					</div>
 					<EllipsisHorizontalIcon className="h-5 w-5 cursor-pointer" />
 					<HeartIcon className="h-5 w-5 cursor-pointer" />
 					<ArrowUpTrayIcon className="h-5 w-5 cursor-pointer" />
 				</div>
-				{data && (
+				{chatOpen && (
+					<form className="flex space-x-2">
+						<input
+							value={userComment}
+							onChange={(e) => setUserComment(e.target.value)}
+							className="bg-gray-400 px-2  flex-1 outline-none rounded-lg  placeholder:text-white text-white"
+							placeholder="Add Comment"
+						/>
+						<button
+							onClick={handleSubmit}
+							disabled={userComment === ""}
+							className="p-2  rounded-lg border border-twitter text-twitter disabled:opacity-40"
+						>
+							Post
+						</button>
+					</form>
+				)}
+				{comments && (
 					<div>
-						{data?.map((comment) => (
+						{comments?.map((comment) => (
 							<div
 								key={comment._id}
 								className="flex flex-col justify-center"
