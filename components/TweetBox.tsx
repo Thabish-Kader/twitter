@@ -8,9 +8,11 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import userImage from "../public/assets/userbackground.jpg";
+import { useSession } from "next-auth/react";
 
 export const TweetBox = () => {
 	const [input, setInput] = useState<string>("");
+	const { data: session } = useSession();
 	return (
 		<div className="flex space-x-2 p-5">
 			<Image

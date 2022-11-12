@@ -1,13 +1,22 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+	Component,
+	pageProps,
+}: AppProps<{
+	session: Session;
+}>) {
 	const queryClient = new QueryClient();
 	return (
-		<QueryClientProvider client={queryClient}>
-			<Component {...pageProps} />
-		</QueryClientProvider>
+		<SessionProvider session={pageProps.session}>
+			<QueryClientProvider client={queryClient}>
+				<Component {...pageProps} />
+			</QueryClientProvider>
+		</SessionProvider>
 	);
 }
 
