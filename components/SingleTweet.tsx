@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
-import { Comment, Tweet } from "../typings";
+import { Comment, Tweet, UserComment } from "../typings";
 import TimeAgo from "react-timeago";
 import {
 	HeartIcon,
@@ -11,6 +11,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { fetchComments } from "../utils/fetchComments";
 import { useQuery } from "react-query";
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 interface SingleTweetProps {
 	tweet: Tweet;
@@ -20,7 +22,7 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 	const [comments, setComments] = useState<Comment[]>([]);
 	const [chatOpen, setChatOpen] = useState<boolean>(false);
 	const [userComment, setUserComment] = useState<string>("");
-
+	const { data: session } = useSession();
 	const getComments = async () => {
 		const tweetComments: Comment[] = await fetchComments(tweet._id);
 		setComments(tweetComments);
@@ -30,9 +32,33 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 		getComments();
 	}, []);
 
+	// Calling comment api endpoint
+	const postComment = async () => {
+		const commentdata: UserComment = {
+			comment: userComment,
+			username: session?.user?.name as string,
+			profileImg: session?.user?.image as string,
+			tweetId: tweet._id,
+		};
+		const result = await fetch(`/api/postComment`, {
+			method: "POST",
+			body: JSON.stringify(commentdata),
+		}).catch((error) => console.log(error));
+		const json = await getComments();
+		const updatedComments = await fetchComments(tweet._id);
+		setComments(updatedComments);
+		toast("Comment Posted");
+		return json;
+	};
+
 	const handleSubmit = (
 		e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-	) => {};
+	) => {
+		e.preventDefault();
+		postComment();
+		setUserComment("");
+		setChatOpen(false);
+	};
 
 	return (
 		<div className="p-4 border-t-gray-100 border-y">
@@ -99,6 +125,8 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 						</button>
 					</form>
 				)}
+
+				{/* Comment Section logic */}
 				{comments && (
 					<div>
 						{comments?.map((comment) => (
