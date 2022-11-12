@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, use, useRef, useState } from "react";
 import {
 	CalendarIcon,
 	FaceSmileIcon,
@@ -13,7 +13,18 @@ import { useSession } from "next-auth/react";
 export const TweetBox = () => {
 	const [input, setInput] = useState<string>("");
 	const [imageInputOpen, setImageInputOpen] = useState<boolean>(false);
+	const imageUrlRef = useRef<HTMLInputElement>(null);
+	const [imageUrl, setImageUrl] = useState<string>("");
 	const { data: session } = useSession();
+
+	// image url handler function
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!imageUrlRef.current?.value) return;
+		setImageUrl(imageUrlRef.current?.value);
+		imageUrlRef.current.value = "";
+		setImageInputOpen(false);
+	};
 	return (
 		<div className="flex space-x-2 p-5">
 			<div className="relative h-14 w-14 ">
@@ -56,8 +67,12 @@ export const TweetBox = () => {
 					</div>
 				</form>
 				{imageInputOpen && (
-					<form className="flex bg-twitter p-2 m-2 rounded-lg">
+					<form
+						onSubmit={handleSubmit}
+						className="flex bg-twitter p-2 m-2 rounded-lg"
+					>
 						<input
+							ref={imageUrlRef}
 							className="flex-1 text-white outline-none bg-transparent placeholder:text-white"
 							type="text"
 							placeholder="Enter Image Link "
@@ -66,6 +81,16 @@ export const TweetBox = () => {
 							Add Image
 						</button>
 					</form>
+				)}
+				{imageUrl && (
+					<div className="relative h-40 w-full mt-2 ">
+						<Image
+							src={imageUrl}
+							className="rounded-lg  object-contain"
+							alt=""
+							fill
+						/>
+					</div>
 				)}
 			</div>
 		</div>
