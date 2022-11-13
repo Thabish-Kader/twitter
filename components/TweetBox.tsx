@@ -42,7 +42,7 @@ export const TweetBox: FC<TweetBoxProps> = ({ setTweets }) => {
 			image: imageUrl,
 		};
 		const result = await fetch(
-			`${process.env.NEXTAUTH_URL}/api/postTweet`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/postTweet`,
 			{
 				body: JSON.stringify(tweetCreate),
 				method: "POST",
