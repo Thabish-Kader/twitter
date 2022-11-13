@@ -1,27 +1,40 @@
-# Next.js + Tailwind CSS Example
+# Twitter
+## Next-JS, Sanity, Tailwind, Vercel (Full Stack)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+This twitter web application is a full stack web app built with react as front-end and sanity powering the backend. This has been the most ambitious project yet. It was a lot of fun working with sanity but at the same time it was challengeing as well as they have a different syntax for querying and mutatiing data. This application allows only authenticated users to post pictures, tweets and comment. The authentication is backed by twitter and google.
 
-## Deploy your own
+Check out the [Live Demo](https://twitter-sanity-nine.vercel.app/))
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Skills Aquired
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+-   Sanity
+-   Typescript (Passing onclick as props etc.)
 
-## How to use
+### Problems Faced
+- The backend was very challenging. As i had to build a schema which had relationship with other (One to manny). This was challengeing as sanity has a different way of createing schemas.
+- The most time spent in the project was deployment. As i was constantly bombarded with errors from vercel. The first error was regarding the CORS error. This was solved by configuring the sanity server to allow read, write rules to domain name of the website.
+- The second problem was with URL given to the backend. It was very intriguing to me that vercel does not allow domain name such as `/api/getComments` but only allows the absolute url `https://twitter-sanity-nine.vercel.app/api/getComments`.
+- The final problem was with the env variables. I had configured the NEX_PUBLIC_BASE_URL=https://twitter-sanity-nine.vercel.app/ as so and was calling it the backend as `${process.env.NEXT_PUBLIC_BASE_URL}/api/getTweets` notice how the endpoint has two // just before api this was a problem as the server interpreted it as https://twitter-sanity-nine.vercel.app/undefined/api/getTweets. This error took me nearly half a day to solve. But after consistent efforts I was able to find it. 
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+### Conclusion
+Sanity is an amazing platform to build full stack apps. It allows front end developers to create interesting projects. The CLI that sanity provides is very insightful on how data appears and has a feature to write query in it as well. In conclusion, it was an amazing experience.
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+### Resources 
+- [CORS HEADERS](https://stackoverflow.com/questions/46785318/the-cors-header-access-control-allow-origin-is-missing)
+- [Exposing Environment Variables to the Browser](https://nextjs.org/docs/basic-features/environment-variables)
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+### ScreenShots
+<img width="1680" alt="Screen Shot 2022-11-13 at 3 36 48 PM" src="https://user-images.githubusercontent.com/76642519/201519737-46943db1-9b1f-450c-8d1f-5544e9208327.png">
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+<img width="1680" alt="Screen Shot 2022-11-13 at 3 37 21 PM" src="https://user-images.githubusercontent.com/76642519/201519771-409e881b-0394-428e-a10a-8a66c0b8aa1d.png">
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+<img width="1680" alt="Screen Shot 2022-11-13 at 3 37 55 PM" src="https://user-images.githubusercontent.com/76642519/201519785-cc48fe08-8202-46ad-a8ae-1549fe2c54b6.png">
+
+<img width="1680" alt="Screen Shot 2022-11-13 at 3 38 13 PM" src="https://user-images.githubusercontent.com/76642519/201519812-6c17905d-f181-4cde-a4e5-f47d4862ee2e.png">
+
+
+
+
+
+
+
