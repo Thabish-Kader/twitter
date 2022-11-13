@@ -40,10 +40,13 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 			profileImg: session?.user?.image as string,
 			tweetId: tweet._id,
 		};
-		const result = await fetch(`/api/postComment`, {
-			method: "POST",
-			body: JSON.stringify(commentdata),
-		}).catch((error) => console.log(error));
+		const result = await fetch(
+			`${process.env.NEXTAUTH_URL}/api/postComment`,
+			{
+				method: "POST",
+				body: JSON.stringify(commentdata),
+			}
+		).catch((error) => console.log(error));
 		const json = await getComments();
 		const updatedComments = await fetchComments(tweet._id);
 		setComments(updatedComments);
