@@ -3,7 +3,7 @@
 
 This twitter web application is a full stack web app built with react as front-end and sanity powering the backend. This has been the most ambitious project yet. It was a lot of fun working with sanity but at the same time it was challengeing as well as they have a different syntax for querying and mutatiing data. This application allows only authenticated users to post pictures, tweets and comment. The authentication is backed by twitter and google.
 
-Check out the [Live Demo](https://twitter-sanity-nine.vercel.app/))
+Check out the [Live Demo](https://twitter-sanity-nine.vercel.app/)
 
 ## Skills Aquired
 
