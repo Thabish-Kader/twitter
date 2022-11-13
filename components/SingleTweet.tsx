@@ -111,23 +111,24 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 					<HeartIcon className="h-5 w-5 cursor-pointer" />
 					<ArrowUpTrayIcon className="h-5 w-5 cursor-pointer" />
 				</div>
-				{chatOpen && (
-					<form className="flex space-x-2">
-						<input
-							value={userComment}
-							onChange={(e) => setUserComment(e.target.value)}
-							className="bg-gray-400 px-2  flex-1 outline-none rounded-lg  placeholder:text-white text-white"
-							placeholder="Add Comment"
-						/>
-						<button
-							onClick={handleSubmit}
-							disabled={userComment === ""}
-							className="p-2  rounded-lg border border-twitter text-twitter disabled:opacity-40"
-						>
-							Post
-						</button>
-					</form>
-				)}
+				{chatOpen ||
+					(session && (
+						<form className="flex space-x-2">
+							<input
+								value={userComment}
+								onChange={(e) => setUserComment(e.target.value)}
+								className="bg-gray-400 px-2  flex-1 outline-none rounded-lg  placeholder:text-white text-white"
+								placeholder="Add Comment"
+							/>
+							<button
+								onClick={handleSubmit}
+								disabled={userComment === ""}
+								className="p-2  rounded-lg border border-twitter text-twitter disabled:opacity-40"
+							>
+								Post
+							</button>
+						</form>
+					))}
 
 				{/* Comment Section logic */}
 				{comments && (
@@ -148,10 +149,10 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 										/>
 									</div>
 									<p className="font-bold text:sm">
-										{comment.username}
+										{/* {comment.username} */}
 									</p>
 									<p className="text-gray-500 text:sm">
-										@{comment.username.replace(/\s+/g, "")}
+										{/* @{comment.username.replace(/\s+/g, "")} */}
 									</p>
 									<TimeAgo
 										className="text-gray-500 text:sm hidden md:inline"
