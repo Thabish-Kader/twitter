@@ -41,7 +41,7 @@ export const SingleTweet: FC<SingleTweetProps> = ({ tweet }) => {
 			tweetId: tweet._id,
 		};
 		const result = await fetch(
-			`${process.env.NEXTAUTH_URL}api/postComment`,
+			`${process.env.NEXTAUTH_URL}/api/postComment`,
 			{
 				method: "POST",
 				body: JSON.stringify(commentdata),
