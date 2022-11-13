@@ -41,13 +41,10 @@ export const TweetBox: FC<TweetBoxProps> = ({ setTweets }) => {
 			profileImg: session?.user?.image || userImage,
 			image: imageUrl,
 		};
-		const result = await fetch(
-			`${process.env.NEXTAUTH_URL}/api/postTweet`,
-			{
-				body: JSON.stringify(tweetCreate),
-				method: "POST",
-			}
-		);
+		const result = await fetch(`${process.env.NEXTAUTH_URL}api/postTweet`, {
+			body: JSON.stringify(tweetCreate),
+			method: "POST",
+		});
 		const json = await result.json();
 		const updatedFeed = await fetchTweets();
 		setTweets(updatedFeed);
