@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ tweets }) => {
-	console.log(`${process.env.NEXTAUTH_URL}/api/getComments?tweetId=`);
+	console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getComments?tweetId=`);
 	return (
 		<div className="">
 			<Toaster />
